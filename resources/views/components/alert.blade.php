@@ -1,8 +1,11 @@
-<div class="alert alert-danger">
-    <!-- Because you are alive, everything is possible. - Thich Nhat Hanh -->
-    @if ($errors->any())
-        @foreach($errors->all() as $error)
-            {{ $error }}
-        @endforeach
-    @endif
-</div>
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <strong>Ops!!!</strong> Existe algum problema no envio.<br /><br />
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
