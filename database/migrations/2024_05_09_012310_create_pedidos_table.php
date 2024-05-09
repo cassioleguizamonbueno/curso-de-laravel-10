@@ -22,7 +22,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
-            $table->foreign('pedido_status_id')->references('id')->on('pedido_status')->onDelete('cascade');
+            $table->foreign('pedido_status_id')->references('id')->on('pedidos_status')->onDelete('cascade');
         });
     }
 
