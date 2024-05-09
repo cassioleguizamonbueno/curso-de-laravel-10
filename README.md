@@ -66,6 +66,11 @@ Gere a key do projeto Laravel
 php artisan key:generate
 ```
 
+Rode a migration com o commando abaixo para recriar todos os dados da base 
+```sh
+php artisan migrate:fresh
+```
+
 
 Acesse o projeto
 [http://localhost:8989](http://localhost:8989)
