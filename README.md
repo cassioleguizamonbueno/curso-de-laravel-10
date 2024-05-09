@@ -4,7 +4,8 @@
 ### Passo a passo
 Clone Repositório
 ```sh
-git clone https://github.com/cassioleguizamonbueno/setup-laravel-docker app-laravel
+
+git clone https://github.com/cassioleguizamonbueno/curso-de-laravel-10.git app-laravel
 ```
 ```sh
 cd app-laravel
@@ -19,37 +20,85 @@ cp .env.example .env
 
 Atualize as variáveis de ambiente do arquivo .env
 ```dosini
-APP_NAME=Nome do APP
+APP_NAME=Laravel
+APP_ENV=local
+APP_KEY=base64:YuwRNagO4LAYn2hHhaxCs6sheT0uPf8PYWWBZDfdYMY=
+APP_DEBUG=true
 APP_URL=http://localhost:8989
+
+LOG_CHANNEL=stack
+LOG_DEPRECATIONS_CHANNEL=null
+LOG_LEVEL=debug
 
 DB_CONNECTION=mysql
 DB_HOST=db
 DB_PORT=3306
-DB_DATABASE=nome_que_desejar_db
-DB_USERNAME=nome_usuario
-DB_PASSWORD=senha_aqui
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=root
 
-CACHE_DRIVER=redis
-QUEUE_CONNECTION=redis
-SESSION_DRIVER=redis
+BROADCAST_DRIVER=log
+CACHE_DRIVER=file
+FILESYSTEM_DISK=local
+QUEUE_CONNECTION=sync
+SESSION_DRIVER=file
+SESSION_LIFETIME=120
 
-REDIS_HOST=redis
+MEMCACHED_HOST=127.0.0.1
+
+REDIS_HOST=127.0.0.1
 REDIS_PASSWORD=null
 REDIS_PORT=6379
-```
 
+MAIL_MAILER=smtp
+MAIL_HOST=mailpit
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS="hello@example.com"
+MAIL_FROM_NAME="${APP_NAME}"
+
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_DEFAULT_REGION=us-east-1
+AWS_BUCKET=
+AWS_USE_PATH_STYLE_ENDPOINT=false
+
+PUSHER_APP_ID=
+PUSHER_APP_KEY=
+PUSHER_APP_SECRET=
+PUSHER_HOST=
+PUSHER_PORT=443
+PUSHER_SCHEME=https
+PUSHER_APP_CLUSTER=mt1
+
+VITE_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
+VITE_PUSHER_HOST="${PUSHER_HOST}"
+VITE_PUSHER_PORT="${PUSHER_PORT}"
+VITE_PUSHER_SCHEME="${PUSHER_SCHEME}"
+VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
+```
 
 Suba os containers do projeto
 ```sh
 docker-compose up -d
 ```
 
-Build novamente os containers do projeto
+Observacao
+```
+O banco sera criado automaticamente pelo docker
+caso queira conectar após a subida dos containers 
+O banco irá subir na porta 3388
+![img.png](img.png)
+```
+
+Se precisar Build novamente os containers do projeto
 ```sh
 docker-compose up -d --build
 ```
 
-Acesse o container app
+Acesse o container app se precisar rodar algum commando de php
 ```sh
 docker-compose exec app bash
 ```
