@@ -11,7 +11,11 @@ use App\Models\Pedidos;
 use App\Models\PedidosStatus;
 use App\Services\PedidosService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Laravel\Facades\Image;
+use Intervention\Image\ImageManager;
 
 class PedidosController extends Controller
 {
@@ -79,8 +83,37 @@ class PedidosController extends Controller
 
     public function store(StoreUpdatePedidos $request, Pedidos $pedidos)
     {
-        $this->service->new(
+        $pedido = $this->service->new(
             CreatePedidosDTO::makeFromRequest($request)
+        );
+
+        $request->validate([
+            'imagem' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $filenamewithextension = $request->file('imagem')->getClientOriginalName();
+
+        $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+
+        $extension = $request->file('imagem')->getClientOriginalExtension();
+
+        $filenametostore = $filename.'_'.time().'.'.$extension;
+
+        $smallthumbnail = $filename.'_small_'.time().'_90x100.'.$extension;
+
+        $request->file('imagem')->storeAs('public/imagens', $filenametostore);
+        $request->file('imagem')->storeAs('public/imagens/thumbnail', $smallthumbnail);
+
+        DB::table('pedidos_imagens')->insert(
+            array(
+                [
+                    'pedido_id' => $pedido->id,
+                    'imagem' => $filenametostore,
+                    'capa' => $smallthumbnail,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]
+            )
         );
 
         return redirect()->route('pedidos.index');
@@ -101,8 +134,38 @@ class PedidosController extends Controller
     // Request trocou para StoreUpdateClientes
     public function update(StoreUpdatePedidos $request, Pedidos $pedido, string|int $id)
     {
+
+        $request->validate([
+            'imagem' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $filenamewithextension = $request->file('imagem')->getClientOriginalName();
+
+        $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+
+        $extension = $request->file('imagem')->getClientOriginalExtension();
+
+        $filenametostore = $filename.'_'.time().'.'.$extension;
+
+        $smallthumbnail = $filename.'_small_'.time().'_90x100.'.$extension;
+
+        $request->file('imagem')->storeAs('public/imagens', $filenametostore);
+        $request->file('imagem')->storeAs('public/imagens/thumbnail', $smallthumbnail);
+
         $pedido = $this->service->update(
             UpdatePedidosDTO::makeFromRequest($request)
+        );
+
+        DB::table('pedidos_imagens')->insert(
+            array(
+                [
+                    'pedido_id' => $pedido->id,
+                    'imagem' => $filenametostore,
+                    'capa' => $smallthumbnail,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]
+            )
         );
 
         if(!$pedido) {

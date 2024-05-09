@@ -14,7 +14,7 @@
 
     <x-alert/>
 
-    <form action="{{ route('pedidos.update', $pedido->id ) }}" method="post">
+    <form action="{{ route('pedidos.update', $pedido->id ) }}" method="post" enctype="multipart/form-data">
         @method('PUT')
         @include('admin.pedidos.partials.form', [
             'pedido' => $pedido

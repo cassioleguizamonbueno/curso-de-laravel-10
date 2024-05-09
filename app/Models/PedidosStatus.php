@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PedidosStatus extends Model
 {
-    protected $table = 'pedido_status';
+    protected $table = 'pedidos_status';
 
     use HasFactory;
 

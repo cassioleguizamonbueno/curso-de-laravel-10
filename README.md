@@ -44,6 +44,10 @@ Suba os containers do projeto
 docker-compose up -d
 ```
 
+Build novamente os containers do projeto
+```sh
+docker-compose up -d --build
+```
 
 Acesse o container app
 ```sh

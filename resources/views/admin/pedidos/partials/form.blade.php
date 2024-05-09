@@ -50,6 +50,12 @@
             <option value="0" {{ (old("ativo") == "0" ? "selected" : "") }} {{ (old("ativo") == "0" ? "selected" : "") }} >Inativo</option>
         </select>
     </div>
+
+    <div class="form-group">
+        <label>Imagem:</label>
+        <input type="file" name="imagem" class="form-control"/>
+    </div>
+
     <div class="form-group">
         <button class="btn btn-primary" type="submit">Enviar</button>
     </div>

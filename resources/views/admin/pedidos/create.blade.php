@@ -15,7 +15,7 @@
 
     <x-alert/>
 
-    <form action="{{ route('pedidos.store') }}" method="post">
+    <form action="{{ route('pedidos.store') }}" method="post" enctype="multipart/form-data">
         @include('admin.pedidos.partials.form')
     </form>
 @endsection
