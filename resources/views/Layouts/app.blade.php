@@ -27,7 +27,7 @@
                     <a class="nav-link" href="/clientes">Clientes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/supports">Suporte</a>
+                    <a class="nav-link" href="/pedidos">Pedidos</a>
                 </li>
             </ul>
         </div>
@@ -41,6 +41,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <!-- Font Awesome JS -->
 <script src='http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 <script>
     $('.input-group.date').datepicker({format: "dd/mm/yyyy"});
 </script>

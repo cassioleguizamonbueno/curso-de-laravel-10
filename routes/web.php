@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\SupportController;
 use App\Http\Controllers\Admin\ClientesController;
+use App\Http\Controllers\Admin\PedidosController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,3 +26,14 @@ Route::get('/clientes/create', [ClientesController::class, 'create'])->name('cli
 Route::get('/clientes/{id}', [ClientesController::class, 'show'])->name('clientes.show');
 Route::post('/clientes', [ClientesController::class, 'store'])->name('clientes.store');
 Route::get('/clientes', [ClientesController::class, 'index'])->name('clientes.index');
+
+//Route::get('/comboClientes', 'PedidoController@create');
+//Route::get('/comboPedidoStatus', 'PedidoController@create');
+Route::get('/pedidos/exportar', [PedidosController::class, 'exportar'])->name('pedidos.exportar');
+Route::delete('/pedidos/{id}', [PedidosController::class, 'destroy'])->name('pedidos.destroy');
+Route::put('/pedidos/{id}', [PedidosController::class, 'update'])->name('pedidos.update');
+Route::get('/pedidos/{id}/edit', [PedidosController::class, 'edit'])->name('pedidos.edit');
+Route::get('/pedidos/create', [PedidosController::class, 'create'])->name('pedidos.create');
+Route::get('/pedidos/{id}', [PedidosController::class, 'show'])->name('pedidos.show');
+Route::post('/pedidos', [PedidosController::class, 'store'])->name('pedidos.store');
+Route::get('/pedidos', [PedidosController::class, 'index'])->name('pedidos.index');
