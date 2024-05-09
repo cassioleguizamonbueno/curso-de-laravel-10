@@ -87,34 +87,36 @@ class PedidosController extends Controller
             CreatePedidosDTO::makeFromRequest($request)
         );
 
-        $request->validate([
-            'imagem' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+        if(isset($request->file)) {
+            $request->validate([
+                'imagem' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
 
-        $filenamewithextension = $request->file('imagem')->getClientOriginalName();
+            $filenamewithextension = $request->file('imagem')->getClientOriginalName();
 
-        $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+            $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
 
-        $extension = $request->file('imagem')->getClientOriginalExtension();
+            $extension = $request->file('imagem')->getClientOriginalExtension();
 
-        $filenametostore = $filename.'_'.time().'.'.$extension;
+            $filenametostore = $filename . '_' . time() . '.' . $extension;
 
-        $smallthumbnail = $filename.'_small_'.time().'_90x100.'.$extension;
+            $smallthumbnail = $filename . '_small_' . time() . '_90x100.' . $extension;
 
-        $request->file('imagem')->storeAs('public/imagens', $filenametostore);
-        $request->file('imagem')->storeAs('public/imagens/thumbnail', $smallthumbnail);
+            $request->file('imagem')->storeAs('public/imagens', $filenametostore);
+            $request->file('imagem')->storeAs('public/imagens/thumbnail', $smallthumbnail);
 
-        DB::table('pedidos_imagens')->insert(
-            array(
-                [
-                    'pedido_id' => $pedido->id,
-                    'imagem' => $filenametostore,
-                    'capa' => $smallthumbnail,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]
-            )
-        );
+            DB::table('pedidos_imagens')->insert(
+                array(
+                    [
+                        'pedido_id' => $pedido->id,
+                        'imagem' => $filenametostore,
+                        'capa' => $smallthumbnail,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]
+                )
+            );
+        }
 
         return redirect()->route('pedidos.index');
     }
